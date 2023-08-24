@@ -353,6 +353,19 @@ app.MapGet("/api/dogs", () =>
     return dogs;
 });
 
+app.MapGet("/api/dogs/{id}", (int id) =>
+{
+    Dog MatchedDog = dogs.FirstOrDefault(d => d.Id == id);
+    City MatchedCity = cities.FirstOrDefault(c => c.Id == MatchedDog.CityId);
+    Walker MatchedWalker = walkers.FirstOrDefault(w => w.Id == MatchedDog.WalkerId);
+
+    MatchedDog.City = MatchedCity;
+    MatchedDog.Walker = MatchedWalker;
+
+    return MatchedDog;
+
+});
+
 app.MapPost("/api/dogs", (Dog newDog) =>
 {
     newDog.Id = dogs.Count > 0 ? dogs.Max(d => d.Id) + 1 : 1;

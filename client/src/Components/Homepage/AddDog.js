@@ -11,6 +11,7 @@ import {
   Input,
 } from 'reactstrap';
 import { getCities, postDog } from '../../apiManager.js';
+import { useNavigate } from 'react-router-dom';
 
 export const AddDog = () => {
   const [modal, setModal] = useState(false);
@@ -19,24 +20,25 @@ export const AddDog = () => {
     name: '',
     city: null,
   });
+  const navigate = useNavigate();
 
-  useEffect(async () => {
+  const getAllCitites = async () => {
     const fetchedCities = await getCities();
     setAllCities(fetchedCities);
+  };
+
+  useEffect(() => {
+    getAllCitites();
   }, []);
-
-
 
   const toggle = () => setModal(!modal);
 
   const handleSubmitButtonClick = async (e) => {
-    const postedDog = await postDog(newDog)
-    .then(res => json())
-    .then(data => {
-        const dogId = data.id;
-        
-    })
-    
+    const postedDog = await postDog(newDog);
+    const postedDogData = await postedDog.json();
+    const dogId = postedDogData.id;
+    navigate(`/dogdetails/${dogId}`);
+
     toggle();
     setNewDog({
       name: '',
