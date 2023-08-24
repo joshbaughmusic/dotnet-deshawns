@@ -421,6 +421,14 @@ app.MapGet("/api/cities", () =>
     return cities;
 });
 
+app.MapPost("/api/cities", (City newCity) =>
+{
+    newCity.Id = cities.Count > 0 ? cities.Max(c => c.Id) + 1 : 1;
+    cities.Add(newCity);
+
+    return newCity;
+});
+
 //walkercities
 
 app.MapGet("/api/walkercities", () =>

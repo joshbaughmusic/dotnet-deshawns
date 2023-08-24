@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import Home from './Components/Homepage/Home.js';
 import { DogDetails } from './Components/DogDetails/DogDetails.js';
 import { AllWalkers } from './Components/Walkers/AllWalkers.js';
+import { AllCities } from './Components/Cities/AllCities.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,6 +28,10 @@ root.render(
         <Route
           path="/walkers"
           element={<AllWalkers />}
+        />
+        <Route
+          path="/cities"
+          element={<AllCities />}
         />
       </Route>
     </Routes>

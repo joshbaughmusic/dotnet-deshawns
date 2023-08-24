@@ -102,7 +102,7 @@ export const AllWalkers = () => {
                       value={walker.id}
                       color="primary"
                     >
-                      Details
+                      Assign
                     </Button>
                     <Button
                       value={walker.id}
