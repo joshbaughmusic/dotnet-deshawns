@@ -374,6 +374,14 @@ app.MapPost("/api/dogs", (Dog newDog) =>
     return newDog;
 });
 
+app.MapDelete("/api/dogs/{id}", (int id) =>
+{   
+    int index = dogs.FindIndex(d => d.Id == id);
+    dogs.RemoveAt(index);
+    
+    return Results.Ok();
+});
+
 
 //cities
 
