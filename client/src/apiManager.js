@@ -19,11 +19,13 @@ export const getCities = async () => {
 }
 
 export const postDog = async(newDog) => {
-  await fetch('/api/dogs', {
+  const res = await fetch('/api/dogs', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(newDog),
   });
+
+  return res;
 }

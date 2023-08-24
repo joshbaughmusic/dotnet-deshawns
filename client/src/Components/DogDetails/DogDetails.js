@@ -6,10 +6,18 @@ export const DogDetails = () => {
   const { dogId } = useParams();
   const [singleDogDetails, setSingleDogDetails] = useState({});
 
-  useEffect(async () => {
+  const getSingleDog = async () => {
     const fetchedDog = await getUniqueDog(dogId);
     setSingleDogDetails(fetchedDog);
+  };
+
+  useEffect(() => {
+    getSingleDog();
   }, []);
+
+  if (!singleDogDetails.name) {
+    return null;
+  }
 
   return (
     <>
@@ -17,7 +25,11 @@ export const DogDetails = () => {
       <div className="container container-dogdetails">
         <p className="dogName">Name: {singleDogDetails.name}</p>
         <p className="dogCity">City: {singleDogDetails.city?.name}</p>
-        <p className="dogWalker">Walker: {singleDogDetails.walker?.name}</p>
+        {singleDogDetails.walker ? (
+          <p className="dogWalker">Walker: {singleDogDetails.walker?.name}</p>
+        ) : (
+          <p className="dogWalker">No walker assigned yet!</p>
+        )}
       </div>
     </>
   );
