@@ -144,7 +144,8 @@ List<Dog> dogs = new List<Dog>
     }
 };
 
-List<Walker> walkers = new List<Walker>{
+List<Walker> walkers = new List<Walker>
+{
     new Walker
     {
         Id = 1,
@@ -350,6 +351,22 @@ app.MapGet("/api/hello", () =>
 app.MapGet("/api/dogs", () =>
 {
     return dogs;
+});
+
+app.MapPost("/api/dogs", (Dog newDog) =>
+{
+    newDog.Id = dogs.Count > 0 ? dogs.Max(d => d.Id) + 1 : 1;
+    dogs.Add(newDog);
+
+    return newDog;
+});
+
+
+//cities
+
+app.MapGet("/api/cities", () =>
+{
+    return cities;
 });
 
 app.Run();

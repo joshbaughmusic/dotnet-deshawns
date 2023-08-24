@@ -1,6 +1,7 @@
 import { getGreeting } from "../../apiManager";
 import { useEffect, useState } from "react";
 import { AllDogs } from "./AllDogs.js";
+import { AddDog } from "./AddDog.js";
 
 export default function Home() {
 
@@ -20,7 +21,7 @@ export default function Home() {
     <>
       <p>{greeting.message}</p>
       <AllDogs />
-      
+      <AddDog />
     </>
   ) 
 }

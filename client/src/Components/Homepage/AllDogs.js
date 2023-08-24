@@ -30,7 +30,6 @@ export const AllDogs = () => {
             );
         })}
         </div>
-        <Button color="primary">Add dog</Button>
       </div>
     </>
   );
