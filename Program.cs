@@ -379,9 +379,14 @@ app.MapDelete("/api/dogs/{id}", (int id) =>
     int index = dogs.FindIndex(d => d.Id == id);
     dogs.RemoveAt(index);
     
-    return Results.Ok();
 });
 
+//walkers
+
+app.MapGet("/api/walkers", () =>
+{
+    return walkers;
+});
 
 //cities
 
@@ -390,4 +395,12 @@ app.MapGet("/api/cities", () =>
     return cities;
 });
 
+//walkercities
+
+app.MapGet("/api/walkercities", () =>
+{
+    return walkerCities;
+});
+
 app.Run();
+

@@ -13,8 +13,18 @@ export const getUniqueDog = async (id) => {
   return res.json();
 }
 
+export const getWalkers = async () => {
+  const res = await fetch("/api/walkers");
+  return res.json();
+}
+
 export const getCities = async () => {
   const res = await fetch("/api/cities")
+  return res.json();
+}
+
+export const getWalkerCities = async () => {
+  const res = await fetch("/api/walkercities")
   return res.json();
 }
 
