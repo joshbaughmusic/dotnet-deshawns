@@ -1,7 +1,9 @@
-import { getGreeting } from "./apiManager";
+import { getGreeting } from "../../apiManager";
 import { useEffect, useState } from "react";
+import { AllDogs } from "./AllDogs.js";
 
 export default function Home() {
+
   const [greeting, setGreeting] = useState({
     message: "You are not Connected to the API",
   });
@@ -14,5 +16,11 @@ export default function Home() {
       });
   }, []);
 
-  return <p>{greeting.message}</p>;
+  return (
+    <>
+      <p>{greeting.message}</p>
+      <AllDogs />
+      
+    </>
+  ) 
 }
