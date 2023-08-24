@@ -388,6 +388,32 @@ app.MapGet("/api/walkers", () =>
     return walkers;
 });
 
+app.MapDelete("/api/walkers/{id}", (int id) =>
+{   
+    int index = walkers.FindIndex(w => w.Id == id);
+    walkers.RemoveAt(index);
+
+    //find all walkerCities that were attached to walker
+
+    List<WalkerCity> matchedWalkerCities = walkerCities.Where(wc => wc.WalkerId == id).ToList();
+
+    foreach (WalkerCity wc in matchedWalkerCities)
+    {
+        walkerCities.Remove(wc);
+    }
+
+    //remove walker from associated dogs
+
+    List<Dog> matchedDogs = dogs.Where(d => d.WalkerId == id).ToList();
+
+    foreach (Dog dog in matchedDogs)
+    {
+        int indx = dogs.FindIndex(d => d.Id == dog.Id);
+        dogs[indx].WalkerId = null;
+    }
+    
+});
+
 //cities
 
 app.MapGet("/api/cities", () =>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCities, getWalkerCities, getWalkers } from '../../apiManager.js';
+import { deleteWalker, getCities, getWalkerCities, getWalkers } from '../../apiManager.js';
 import { Button, ButtonGroup, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -56,6 +56,13 @@ export const AllWalkers = () => {
     }
   }, [filterTerms]);
 
+  const handleDeleteWalkerClick = async e => {
+    const walkerId = e.target.value;
+    await deleteWalker(walkerId);
+    await getAllWalkers();
+    await getAllWalkerCities();
+  }
+
   return (
     <>
       <div className="container walkers-inner">
@@ -100,8 +107,9 @@ export const AllWalkers = () => {
                     <Button
                       value={walker.id}
                       color="danger"
+                      onClick={handleDeleteWalkerClick}
                     >
-                      Delete
+                      Remove
                     </Button>
                   </ButtonGroup>
                 </div>
