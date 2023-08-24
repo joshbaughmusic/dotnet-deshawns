@@ -45,3 +45,9 @@ export const deleteDog = async(id) => {
     method: 'DELETE',
   })
 }
+
+export const deleteWalker = async(id) => {
+  await fetch(`/api/walkers/${id}`, {
+    method: 'DELETE',
+  })
+}
