@@ -31,7 +31,7 @@ export const AddDog = () => {
 
   const handleSubmitButtonClick = async (e) => {
     const postedDog = await postDog(newDog)
-    .then(res => json())
+    .then(res => res.json())
     .then(data => {
         const dogId = data.id;
         
