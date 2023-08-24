@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, ButtonGroup } from 'reactstrap';
-import { getDogs } from '../../apiManager.js';
+import { deleteDog, getDogs } from '../../apiManager.js';
 import './Homepage.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export const AllDogs = () => {
     const fetchedDogs = await getDogs();
     setAllDogs(fetchedDogs);
   };
-  
+
   useEffect(() => {
     getAllDogs()
   }, []);
@@ -22,6 +22,12 @@ export const AllDogs = () => {
     const dogId = e.target.value;
     navigate(`/dogdetails/${dogId}`);
   };
+
+  const handleDogDeleteClick = (e) => {
+    const dogId = e.target.value;
+    deleteDog(dogId)
+    getAllDogs()
+  }
 
   return (
     <>
@@ -41,7 +47,13 @@ export const AllDogs = () => {
                     >
                       Details
                     </Button>
-                    <Button color="danger">Delete</Button>
+                    <Button
+                      value={dog.id}
+                      onClick={handleDogDeleteClick}
+                      color="danger"
+                    >
+                      Delete
+                    </Button>
                   </ButtonGroup>
                 </div>
               </>
