@@ -312,12 +312,6 @@ List<WalkerCity> walkerCities = new List<WalkerCity>
         Id = 14,
         WalkerId = 2,
         CityId = 2
-    },
-    new WalkerCity
-    {
-        Id = 15,
-        WalkerId = 1,
-        CityId = 4
     }
 };
 
@@ -398,7 +392,33 @@ app.MapGet("/api/walkers/{id}", (int id) =>
 {
     Walker MatchedWalker = walkers.FirstOrDefault(w => w.Id == id);
 
+    List<WalkerCity> walkerCitiesForWalker = walkerCities.Where(wc => wc.WalkerId == id).ToList();
+
+    List<City> citiesForWalker = walkerCitiesForWalker.Select(wc => cities.First(c => c.Id == wc.CityId)).ToList();
+
+    MatchedWalker.Cities = citiesForWalker;
+
     return MatchedWalker;
+
+});
+
+app.MapPut("/api/walkers/{id}", (int id, Walker walkerObj) =>
+{
+    int index = walkers.FindIndex(w => w.Id == id);
+    walkers[index].Name = walkerObj.Name;
+
+    walkerCities = walkerCities.Where(wc => wc.WalkerId != id).ToList();
+
+    foreach (City city in walkerObj.Cities)
+    {
+        WalkerCity newWC = new WalkerCity
+        {
+            WalkerId = id,
+            CityId = city.Id
+        };
+        newWC.Id = walkerCities.Count > 0 ?walkerCities.Max(wc => wc.Id) + 1 : 1;
+        walkerCities.Add(newWC);
+    }
 
 });
 

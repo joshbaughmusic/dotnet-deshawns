@@ -13,7 +13,7 @@ import {
 import { getDogs, getWalkerCities, postAssignDog } from '../../apiManager.js';
 import { useNavigate } from 'react-router-dom';
 
-export const AssignDog = ({ walkerId }) => {
+export const AssignDog = ({ walkerId, watcher }) => {
   const [availableDogs, setAvailableDogs] = useState([]);
   const [modal, setModal] = useState(false);
   const [assignedDog, setAssignedDog] = useState({
@@ -52,7 +52,7 @@ export const AssignDog = ({ walkerId }) => {
 
   useEffect(() => {
     getAvailableDogs();
-  }, []);
+  }, [watcher]);
 
   const handleSubmitButtonClick = async (e) => {
     const submitAssignedDog = await postAssignDog(assignedDog)

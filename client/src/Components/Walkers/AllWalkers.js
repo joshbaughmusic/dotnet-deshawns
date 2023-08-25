@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { deleteWalker, getCities, getWalkerCities, getWalkers } from '../../apiManager.js';
 import { Button, ButtonGroup, Form, FormGroup, Label, Input } from 'reactstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useRoutes } from 'react-router-dom';
 import { AssignDog } from './AssignDog.js';
+import { WalkerEdit } from './WalkerEdit.js';
 
 export const AllWalkers = () => {
   const [allCities, setAllCities] = useState([]);
@@ -10,6 +11,7 @@ export const AllWalkers = () => {
   const [allWalkerCities, setAllWalkerCities] = useState([]);
   const [filterTerms, setFilterTerms] = useState();
   const [filteredWalkers, setFilteredWalkers] = useState([]);
+  const [watcher, setWatcher] = useState(false)
 
   const getAllWalkers = async () => {
     const fetchedWalkers = await getWalkers();
@@ -98,7 +100,16 @@ export const AllWalkers = () => {
               <>
                 <div className="container walker-container">
                   <h4 className="heading walker-heading">{`${walker.name}`}</h4>
-                    <AssignDog walkerId={walker.id}/>
+                  <ButtonGroup>
+                    <AssignDog
+                      watcher={watcher}
+                      walkerId={walker.id}
+                    />
+                    <WalkerEdit
+                      watcher={watcher}
+                      setWatcher={setWatcher}
+                      walkerId={walker.id}
+                    />
                     <Button
                       value={walker.id}
                       color="danger"
@@ -106,7 +117,7 @@ export const AllWalkers = () => {
                     >
                       Remove
                     </Button>
-                  
+                  </ButtonGroup>
                 </div>
               </>
             );
