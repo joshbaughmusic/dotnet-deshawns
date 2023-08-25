@@ -18,6 +18,11 @@ export const getWalkers = async () => {
   return res.json();
 }
 
+export const getUniqueWalker = async (id) => {
+  const res = await fetch(`/api/walkers/${id}`);
+  return res.json();
+};
+
 export const getCities = async () => {
   const res = await fetch("/api/cities")
   return res.json();
@@ -35,6 +40,19 @@ export const postDog = async(newDog) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(newDog),
+  });
+
+  return res;
+}
+
+export const postAssignDog = async(assignedDog) => {
+  const dogId = assignedDog.id;
+  const res = await fetch(`/api/dogs/${dogId}/assign`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(assignedDog),
   });
 
   return res;

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { deleteWalker, getCities, getWalkerCities, getWalkers } from '../../apiManager.js';
 import { Button, ButtonGroup, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import { AssignDog } from './AssignDog.js';
 
 export const AllWalkers = () => {
   const [allCities, setAllCities] = useState([]);
@@ -97,13 +98,7 @@ export const AllWalkers = () => {
               <>
                 <div className="container walker-container">
                   <h4 className="heading walker-heading">{`${walker.name}`}</h4>
-                  <ButtonGroup>
-                    <Button
-                      value={walker.id}
-                      color="primary"
-                    >
-                      Assign
-                    </Button>
+                    <AssignDog walkerId={walker.id}/>
                     <Button
                       value={walker.id}
                       color="danger"
@@ -111,7 +106,7 @@ export const AllWalkers = () => {
                     >
                       Remove
                     </Button>
-                  </ButtonGroup>
+                  
                 </div>
               </>
             );
