@@ -70,6 +70,18 @@ export const postCity = async(newCity) => {
   return res;
 }
 
+export const putWalker = async (id, walkerObj) => {
+  const res = await fetch(`/api/walkers/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(walkerObj),
+  });
+
+  return res;
+};
+
 export const deleteDog = async(id) => {
   await fetch(`/api/dogs/${id}`, {
     method: 'DELETE',
