@@ -6,70 +6,70 @@ List<Dog> dogs = new List<Dog>
     {
         Id = 1,
         Name = "Bertrand",
-        WalkerId = 3,
+        WalkerId = null,
         CityId = 2
     },
     new Dog
     {
         Id = 2,
         Name = "Bella",
-        WalkerId = 7,
+        WalkerId = null,
         CityId = 4
     },
     new Dog
     {
         Id = 3,
         Name = "Maximus",
-        WalkerId = 2,
+        WalkerId = null,
         CityId = 3
     },
     new Dog
     {
         Id = 4,
         Name = "Daisy",
-        WalkerId = 5,
+        WalkerId = null,
         CityId = 1
     },
     new Dog
     {
         Id = 5,
         Name = "Rusty",
-        WalkerId = 8,
+        WalkerId = null,
         CityId = 2
     },
     new Dog
     {
         Id = 6,
         Name = "Luna",
-        WalkerId = 1,
+        WalkerId = null,
         CityId = 5
     },
     new Dog
     {
         Id = 7,
         Name = "Charlie",
-        WalkerId = 4,
+        WalkerId = null,
         CityId = 4
     },
     new Dog
     {
         Id = 8,
         Name = "Rocky",
-        WalkerId = 9,
+        WalkerId = null,
         CityId = 1
     },
     new Dog
     {
         Id = 9,
         Name = "Maggie",
-        WalkerId = 6,
+        WalkerId = null,
         CityId = 3
     },
     new Dog
     {
         Id = 10,
         Name = "Oscar",
-        WalkerId = 10,
+        WalkerId = null,
         CityId = 5
     },
     new Dog
@@ -374,6 +374,12 @@ app.MapPost("/api/dogs", (Dog newDog) =>
     return newDog;
 });
 
+app.MapPost("/api/dogs/{id}/assign", (int id, Dog assignedDog) =>
+{
+    int index = dogs.FindIndex(d => d.Id == id);
+    dogs[index].WalkerId = assignedDog.WalkerId;
+});
+
 app.MapDelete("/api/dogs/{id}", (int id) =>
 {   
     int index = dogs.FindIndex(d => d.Id == id);
@@ -386,6 +392,14 @@ app.MapDelete("/api/dogs/{id}", (int id) =>
 app.MapGet("/api/walkers", () =>
 {
     return walkers;
+});
+
+app.MapGet("/api/walkers/{id}", (int id) =>
+{
+    Walker MatchedWalker = walkers.FirstOrDefault(w => w.Id == id);
+
+    return MatchedWalker;
+
 });
 
 app.MapDelete("/api/walkers/{id}", (int id) =>
